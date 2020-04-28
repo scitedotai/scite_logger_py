@@ -11,4 +11,5 @@ setup(name='scite_logger_py',
           'psutil',
           'python-json-logger'
       ],
+      python_requires='>=3',
       zip_safe=False)

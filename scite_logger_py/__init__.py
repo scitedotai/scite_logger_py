@@ -13,9 +13,6 @@ from logging.handlers import WatchedFileHandler
 from pythonjsonlogger import jsonlogger
 
 SCITE_ENV = os.environ.get('SCITE_ENV', 'development')
-LOGGER_NAME = os.environ.get('LOGGER_NAME', 'scite_app')
-LOG_PATH = os.environ.get('LOG_PATH', 'log/application.log')
-LOG_BASENAME = os.path.dirname(LOG_PATH)
 
 
 class CustomJsonFormatter(jsonlogger.JsonFormatter):
@@ -61,17 +58,14 @@ class CustomJsonFormatter(jsonlogger.JsonFormatter):
         log_record['u_id'] = uuid.uuid4().hex
 
 
-logger = logging.getLogger(LOGGER_NAME)
-formatter = CustomJsonFormatter()
-
-
-def _create_logger(env=SCITE_ENV):
-    logger = logging.getLogger(LOGGER_NAME)
+def create_logger(env=SCITE_ENV, logger_name='scite-app', log_path='log/application.log'):
+    logger = logging.getLogger(logger_name)
+    log_basename = os.path.dirname(log_path)
     formatter = CustomJsonFormatter()
 
     if env == "production":
-        os.makedirs(LOG_BASENAME, exist_ok=True)
-        log_handler = WatchedFileHandler(LOG_PATH)
+        os.makedirs(log_basename, exist_ok=True)
+        log_handler = WatchedFileHandler(log_path)
         log_handler.setFormatter(formatter)
         logger.addHandler(log_handler)
         logger.setLevel(logging.INFO)
@@ -81,6 +75,3 @@ def _create_logger(env=SCITE_ENV):
         logger.setLevel(logging.DEBUG)
 
     return logger
-
-
-logger = _create_logger()
