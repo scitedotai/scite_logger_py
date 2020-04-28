@@ -58,7 +58,10 @@ class CustomJsonFormatter(jsonlogger.JsonFormatter):
         log_record['u_id'] = uuid.uuid4().hex
 
 
-def create_logger(env=SCITE_ENV, logger_name='scite-app', log_path='log/application.log'):
+def create_logger(env=SCITE_ENV,
+                  logger_name='scite-app',
+                  log_path='log/application.log',
+                  log_level=logging.INFO):
     logger = logging.getLogger(logger_name)
     log_basename = os.path.dirname(log_path)
     formatter = CustomJsonFormatter()
@@ -68,10 +71,10 @@ def create_logger(env=SCITE_ENV, logger_name='scite-app', log_path='log/applicat
         log_handler = WatchedFileHandler(log_path)
         log_handler.setFormatter(formatter)
         logger.addHandler(log_handler)
-        logger.setLevel(logging.INFO)
+        logger.setLevel(log_level)
     else:
         log_handler = StreamHandler(sys.stdout)
         logger.addHandler(log_handler)
-        logger.setLevel(logging.DEBUG)
+        logger.setLevel(log_level)
 
     return logger
