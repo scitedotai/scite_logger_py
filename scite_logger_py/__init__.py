@@ -8,7 +8,6 @@ import sys
 import uuid
 
 from datetime import datetime
-from logging import StreamHandler
 from logging.handlers import WatchedFileHandler
 from pythonjsonlogger import jsonlogger
 
