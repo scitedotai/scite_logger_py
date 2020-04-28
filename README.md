@@ -1,1 +1,1 @@
-# scite-logger-py
+# scite_logger_py
