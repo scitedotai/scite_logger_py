@@ -66,9 +66,9 @@ def create_logger(logger_name='scite-app',
     os.makedirs(log_basename, exist_ok=True)
 
     formatter = CustomJsonFormatter()
-    log_handler.setFormatter(formatter)
     if log_handler is None:
         log_handler = WatchedFileHandler(log_path)
+    log_handler.setFormatter(formatter)
     logger.addHandler(log_handler)
     logger.setLevel(log_level)
 
