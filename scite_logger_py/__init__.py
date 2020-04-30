@@ -3,12 +3,12 @@
 import inspect
 import logging
 import os
-import psutil
-import sys
 import uuid
-
 from datetime import datetime
 from logging.handlers import WatchedFileHandler
+
+import psutil
+
 from pythonjsonlogger import jsonlogger
 
 SCITE_ENV = os.environ.get('SCITE_ENV', 'development')
