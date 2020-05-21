@@ -30,11 +30,10 @@ class CustomJsonFormatter(jsonlogger.JsonFormatter):
             'level': record.levelname
         }
 
-        if 'name' in log_record:
+        if record.name:
             log_record['service'] = {
-                'name': log_record['name']
+                'name': record.name
             }
-            del log_record['name']
 
         if 'exc_info' in log_record:
             log_record['error'] = log_record.get('error', {})
